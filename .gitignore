@@ -1,0 +1,16 @@
+**/*.tif
+**/*.png
+**/*.jpg
+**/*.jpg*
+**/*.jpeg
+**/*.npz
+
+**/*.dbf
+**/*.cpg
+**/*.fix
+**/*.prj
+**/*.shp
+**/*.shx
+doodler_backup/
+segmentation_gym/
+dash_doodler/

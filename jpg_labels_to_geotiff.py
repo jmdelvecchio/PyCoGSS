@@ -12,6 +12,32 @@ label_geotiff_dir.mkdir(exist_ok=True)
 
 # Get list of oginal geotiffs from geotiff file name prefixes
 
+       data = dict()
+        with load(anno_file, allow_pickle=True) as dat:
+            #create a dictionary of variables
+            #automatically converted the keys in the npz file, dat to keys in the dictionary, data, then assigns the arrays to data
+            for k in dat.keys():
+                data[k] = dat[k]
+            del dat
+
+        #Make the original images as jpg
+        if 'orig_image' in data.keys():
+            im = np.squeeze(data['orig_image'].astype('uint8'))[:,:,:3]
+        else:
+            if data['image'].shape[-1]==4:
+                im=np.squeeze(data['image'].astype('uint8'))[:,:,:-1]
+                band4=np.squeeze(data['image'].astype('uint8'))[:,:,-1]
+            else:
+                im = np.squeeze(data['image'].astype('uint8'))[:,:,:3]
+
+        io.imsave(anno_file.replace('.npz','.jpg'),
+                  im, quality=100, chroma_subsampling=False)
+
+        if 'band4' in locals():
+                io.imsave(anno_file.replace('.npz','_band4.jpg'),
+                          band4, quality=100, chroma_subsampling=False)
+                del band4
+
 # Get spatial references of original geotiffs
 
 # Project jpegs with corresponding crs

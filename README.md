@@ -19,13 +19,13 @@ I have been compiling a guide to [Python-based landscape analysis](https://joanm
 This is a guide for accessing Doodleverse software in Dartmouth's HPC environment. Please consult the wikis of the Doodleverse software for help there.
 
 ### Doodler 
-You have to make an ssh tunnel to copy and paste the address that Doodler spits out:
+You have to [make an ssh tunnel](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=124517) to copy and paste the address that Doodler spits out:
 
 1. ssh to andes or polaris
 2. Do the instructions on the Github to install dash doolder. When installing Dash Doodler navigate to the `dash_doodler` directory with `cd dash_doodler`. Don’t worry about conda version errors. It will take a while.
 3. activate your `dashdoodler` environment you created when installing Doodler
-4. Run `python [doodler.py](http://doodler.py)` after navigating to the directory with `cd dash_doodler`
-5. You have to make an ssh tunnel to copy and paste the address that Doodler spits out. Note the address: it should be `[http://127.0.0.1:8050/](http://127.0.0.1:8050/)`  The server is 127.0.0.1 and the port is 8050. 
+4. Run `python doodler.py` after navigating to the directory with `cd dash_doodler`
+5. You have to make an ssh tunnel to copy and paste the address that Doodler spits out. Note the address: it should be `http://127.0.0.1:8050/`  The server is 127.0.0.1 and the port is 8050. 
 
 ![Untitled](readme_assets/Untitled.png)
 

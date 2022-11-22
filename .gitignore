@@ -15,3 +15,4 @@ doodler_backup/
 segmentation_gym/
 dash_doodler/
 !pycogss_flowchart.png
+!readme_assets/*

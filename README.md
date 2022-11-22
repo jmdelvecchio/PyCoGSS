@@ -4,8 +4,8 @@ So begins the **Py**thon **Co**mputational **G**eomorphology **S**oftware **S**y
 # Steps
 1. Use the GEE Code Editor and `gee_scripts` to grab ya imagery
 2. Use `make_jpges.py` to turn ya Earth Engine files into jpgs for Doodler. 
-3. Use [Dash Doodler] (https://github.com/Doodleverse/dash_doodler) to label/segment ya imagery
-4. Use [Segmentation Gym] (https://github.com/Doodleverse/segmentation_gym) to segment unlabeled imagery 
+3. Use [Dash Doodler](https://github.com/Doodleverse/dash_doodler) to label/segment ya imagery
+4. Use [Segmentation Gym](https://github.com/Doodleverse/segmentation_gym) to segment unlabeled imagery 
 
 # Plan
 ![flowchart](readme_assets/pycogss_flowchart.png)
@@ -13,7 +13,7 @@ So begins the **Py**thon **Co**mputational **G**eomorphology **S**oftware **S**y
 
 # Guides
 ## General Python guides
-I have been compiling a guide to [Python-based landscape analysis] (https://joanmarie.notion.site/Python-based-Landscape-Analysis-1e4b0f77794b4110925178117c2d9532) on my Notion site, but with the advent of PyCoGSS, I anticipate moving the guide to this repo. 
+I have been compiling a guide to [Python-based landscape analysis](https://joanmarie.notion.site/Python-based-Landscape-Analysis-1e4b0f77794b4110925178117c2d9532) on my Notion site, but with the advent of PyCoGSS, I anticipate moving the guide to this repo. 
 
 ## Doodleverse guides for Dartmouth/HPC
 This is a guide for accessing Doodleverse software in Dartmouth's HPC environment. Please consult the wikis of the Doodleverse software for help there.
@@ -48,16 +48,16 @@ so replicate the following but with your username
 ssh [id]@discovery7.dartmouth.edu
 ```
 
-1. Start an [interactive session](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=132460) on Discovery. when you type `k80:4`  that means you are using 4 GPUs at once 😎 you do training in super-speed!! But if you aren’t doing any operations it could time out because those resources are sometimes high in demand. 
+3. Start an [interactive session](https://services.dartmouth.edu/TDClient/1806/Portal/KB/ArticleDet?ID=132460) on Discovery. when you type `k80:4`  that means you are using 4 GPUs at once 😎 you do training in super-speed!! But if you aren’t doing any operations it could time out because those resources are sometimes high in demand. 
 
 ```jsx
 srun -p gpuq --gres=gpu:k80:4 --pty /bin/bash
 ```
 
-1. Making sure you installed Segmentation Gym according to the GitHub, activate your `gym` environment
+4. Making sure you installed Segmentation Gym according to the GitHub, activate your `gym` environment
 
 ```jsx
 conda activate gym
 ```
 
-1. Follow the [Segmentation Gym wiki](https://github.com/Doodleverse/segmentation_gym/wiki) and have fun!
+5. Follow the [Segmentation Gym wiki](https://github.com/Doodleverse/segmentation_gym/wiki) and have fun!

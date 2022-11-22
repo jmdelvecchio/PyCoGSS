@@ -6,3 +6,6 @@ Steps:
 2. Use `make_jpges.py` to turn ya Earth Engine files into jpgs for Doodler. 
 3. Use Dash Doodler to label/segment ya imagery
 4. Use Segmentation Gym to segment unlabeled imagery 
+
+Plan:
+![flowchart](./pycogss_flowchart.png)

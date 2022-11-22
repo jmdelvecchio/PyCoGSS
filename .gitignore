@@ -1,4 +1,3 @@
-!pycogss_flowchart.png
 **/*.tif
 **/*.png
 **/*.jpg
@@ -15,3 +14,4 @@
 doodler_backup/
 segmentation_gym/
 dash_doodler/
+!pycogss_flowchart.png

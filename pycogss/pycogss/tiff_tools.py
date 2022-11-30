@@ -110,42 +110,46 @@ def merge_and_tile(datatype, tile=None):
 
     shutil.move("./"+filename, merged_dir / filename)
 
-# def jpg_from_ee(datatype):
+def jpg_from_ee(datatype):
 
 
-#     """
-#   Merges geotiffs delivered in strips/tiles and optionally retiles for Doodler
-#   """
-#     from osgeo import gdal
-#     import glob, os, shutil
-#     import pathlib
-#     from pathlib import Path 
+    """
+  converting EE-derived tiles to jpg
+  """
+    from osgeo import gdal
+    import glob, os, shutil
+    import pathlib
+    from pathlib import Path 
 
-#     print("merge and tile!")
+    print("converting EE-derived tiles to jpg!")
 
-#     geotiff_dir = Path('.')
-#     geotiff_dir.mkdir(exist_ok=True)
-#     jpg_dir = Path('./jpgs')
-#     jpg_dir.mkdir(exist_ok=True)
+    geotiff_dir = Path('.')
+    geotiff_dir.mkdir(exist_ok=True)
+    jpg_dir = Path('./jpgs_from_ee')
+    jpg_dir.mkdir(exist_ok=True)
 
-#     globber = "*" + datatype + "*.tif"
+    globber = "*" + datatype + "*.tif"
 
-#     tif_list = glob.glob(globber)
+    #tif_list = glob.glob(globber)
 
-#     for tif_pth in tif_list:
-#     options_list = [
-#         '-ot Byte',
-#         '-of JPEG',
-#         '-b 1',
-#         '-b 2',
-#         '-b 3'
-#         '-scale'
-#     ]           
-    
-#     options_string = " ".join(options_list)
 
-#     gdal.Translate(
-#         (jpg_dir / f'{tif_pth.stem}.jpg').as_posix(),
-#         tif_pth.as_posix(),
-#         options=options_string
-#     )
+
+    for tif_pth in geotiff_dir.glob(globber):
+        print(tif_pth)
+        options_list = [
+        '-ot Byte',
+        '-of JPEG',
+        '-b 1',
+        '-b 2',
+        '-b 3'
+        '-scale'
+        ]       
+        options_string = " ".join(options_list)     
+
+        print((jpg_dir / f'{tif_pth.stem}.jpg').as_posix())
+
+        gdal.Translate(
+            (jpg_dir / f'{tif_pth.stem}.jpg').as_posix(),
+            tif_pth.as_posix(),
+            options=options_string
+        )

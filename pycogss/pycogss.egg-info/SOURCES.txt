@@ -1,0 +1,8 @@
+setup.py
+pycogss/__init__.py
+pycogss/merge_and_tile.py
+pycogss.egg-info/PKG-INFO
+pycogss.egg-info/SOURCES.txt
+pycogss.egg-info/dependency_links.txt
+pycogss.egg-info/not-zip-safe
+pycogss.egg-info/top_level.txt

@@ -4,6 +4,7 @@ def merge_and_tile(tag=None, tile=None):
 
   tag = a string that might be a prefix or suffix that helps you gather the files you want to merge
   If you leave it blank it'll just merge everything in the directory
+  tile = a single integer of the dimensions of the tile size u want
   """
     from osgeo import gdal
     import glob, os, shutil

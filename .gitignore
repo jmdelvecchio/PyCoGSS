@@ -11,6 +11,7 @@
 **/*.prj
 **/*.shp
 **/*.shx
+**/*.mat
 doodler_backup/
 segmentation_gym/
 dash_doodler/

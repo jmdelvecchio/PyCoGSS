@@ -12,6 +12,7 @@
 **/*.shp
 **/*.shx
 doodler_backup/
+nsf/
 segmentation_gym/
 dash_doodler/
 !pycogss_flowchart.png

@@ -1,8 +1,9 @@
-def merge_and_tile(datatype, tile=None):
-
-
+def merge_and_tile(tag=None, tile=None):
     """
   Merges geotiffs delivered in strips/tiles and optionally retiles for Doodler
+
+  tag = a string that might be a prefix or suffix that helps you gather the files you want to merge
+  If you leave it blank it'll just merge everything in the directory
   """
     from osgeo import gdal
     import glob, os, shutil
@@ -16,21 +17,13 @@ def merge_and_tile(datatype, tile=None):
     merged_dir = Path('./merged')
     merged_dir.mkdir(exist_ok=True)
 
-    hybas_id = Path.cwd().name
-    print(hybas_id)
+    dir_name = Path.cwd().name
+    print(dir_name)
 
-    # # The two different quotes are necessary to get quotes as the variables
-    # nodata_string = '"0 0 0"'
-    # vrt_string = "gdalbuildvrt -srcnodata " + str(nodata_string) + " vc_merged.vrt *_Visual_clip.tif"
-    # os.system(vrt_string)
-
-    # translate_string = "gdal_translate -of GTiff vc_merged.vrt " + hybas_id + ".tif"
-    # os.system(translate_string)
-
-    # Globber is what you want to use to gather (glob) the files for merging e.g. '*_rgb*.tif'
-    #globber = '*_Visual_clip.tif'
-
-    globber = "*" + datatype + "*.tif"
+    if tag is not None:
+        globber = "*" + tag + "*.tif"
+    else:
+        globber = "*.tif"
 
     tif_list = glob.glob(globber)
 
@@ -40,11 +33,11 @@ def merge_and_tile(datatype, tile=None):
     wkt_string = "gdalsrsinfo -o wkt " + first_tif + " > target.wkt"
     os.system(wkt_string)
 
-    filename = hybas_id + "_" + datatype + ".tif"
+    filename = dir_name + "_" + tag + ".tif"
 
     warp_string = "gdalwarp -t_srs target.wkt -co TILED=YES -co BIGTIFF=YES -co COMPRESS=DEFLATE -srcnodata 0 " + globber + " " + filename
-    #warp_string = "gdalwarp -t_srs target.wkt -co TILED=YES -co BIGTIFF=YES -co COMPRESS=DEFLATE *_Visual_clip.tif " + hybas_id + ".tif"
-    #warp_string = "gdalwarp -overwrite -multi -wm 80% -t_srs target.wkt -co TILED=YES -co BIGTIFF=YES -co COMPRESS=DEFLATE " + hybas_id + ".tif *_Visual_clip.tif"
+    #warp_string = "gdalwarp -t_srs target.wkt -co TILED=YES -co BIGTIFF=YES -co COMPRESS=DEFLATE *_Visual_clip.tif " + dir_name + ".tif"
+    #warp_string = "gdalwarp -overwrite -multi -wm 80% -t_srs target.wkt -co TILED=YES -co BIGTIFF=YES -co COMPRESS=DEFLATE " + dir_name + ".tif *_Visual_clip.tif"
     os.system(warp_string)
     #https://gis.stackexchange.com/questions/414915/fastest-possible-use-of-gdal-to-merge-reproject-convert
 
@@ -110,7 +103,7 @@ def merge_and_tile(datatype, tile=None):
 
     shutil.move("./"+filename, merged_dir / filename)
 
-def jpg_from_ee(datatype):
+def jpg_from_ee(tag=None):
 
 
     """
@@ -128,7 +121,10 @@ def jpg_from_ee(datatype):
     jpg_dir = Path('./jpgs_from_ee')
     jpg_dir.mkdir(exist_ok=True)
 
-    globber = "*" + datatype + "*.tif"
+    if tag is not None:
+        globber = "*" + tag + "*.tif"
+    else:
+        globber = "*.tif"
 
     #tif_list = glob.glob(globber)
 

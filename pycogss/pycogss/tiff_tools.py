@@ -4,6 +4,7 @@ import pathlib
 from pathlib import Path 
 from tkinter import filedialog, messagebox
 import tkinter as tk
+import numpy as np
 
 def merge_and_tile(tag=None, tile=None):
     """
@@ -287,19 +288,61 @@ groups by HYBAS ID
 
         print("Created ", filename)
 
-def to_polar():
+# Somehow this is garbage:
+
+# def to_polar():
+#     """
+# Google doesn't let you export shapefiles with a crs
+# Not strictly a tiff
+#      """
+#     root = tk.Tk()
+#     root.filename =  filedialog.askdirectory(initialdir = os.getcwd(),title = "Select directory of EARTH ENGINE SHAPES")
+#     shp_dir = Path(root.filename)
+   
+#     os.chdir(shp_dir.as_posix())
+#     print("Changed working directory to ", os.getcwd())
+#     root.withdraw()
+
+#     for shp in glob.glob('*.shp'):
+#         shape_string = f'ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:5936 -s_srs EPSG:4326 polar_{shp} {shp}'
+#         os.system(shape_string)
+
+def cut_labels():
     """
 Google doesn't let you export shapefiles with a crs
 Not strictly a tiff
      """
     root = tk.Tk()
-    root.filename =  filedialog.askdirectory(initialdir = os.getcwd(),title = "Select directory of EARTH ENGINE SHAPES")
+    root.filename =  filedialog.askdirectory(initialdir = os.getcwd(),title = "Select directory containing SHAPES AND TIFS")
     shp_dir = Path(root.filename)
    
     os.chdir(shp_dir.as_posix())
-    print("Changed working directory to", os.getcwd())
+    print("Changed working directory to ", os.getcwd())
     root.withdraw()
 
-    for shp in glob.glob('*.shp'):
-        shape_string = f'ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:5936 -s_srs EPSG:4326 polar_{shp} {shp}'
-        os.system(shape_string)
+    ids = np.unique(
+        np.array([
+            file.stem[:10]
+            for file in shp_dir.glob('*.tif')
+        ])
+    )
+
+    #-crop_to_cutline
+
+    for id in ids:
+        
+        # print(os.system(f'ogrinfo -ro -so -al polar_{id}.shp'))
+        # print(os.system(f'gdalinfo {id}_labels.tif'))
+
+        repro_string = f'gdalwarp -of GTiff -t_srs EPSG:5936 {id}_labels.tif {id}_polar_labels.tif'
+        os.system(repro_string)
+
+        cutline_string = (
+            f'gdalwarp -of GTiff -cutline polar_{id}.shp -t_srs EPSG:5936 -s_srs EPSG:5936 -dstnodata 9999 {id}_polar_labels.tif {id}_cropped_labels.tif'
+            )
+        os.system(cutline_string)
+        # gdal.Warp(f'{id}_cropped_labels.tif',
+        #            f'{id}_labels.tif',
+        #            cutlineDSName=f'polar_{id}.shp',
+        #            cropToCutline=True)
+        print(f'Removing nodata parts of {id}')

@@ -14,7 +14,7 @@
     "DO_TRAIN": true,
     "LOSS":"dice",
     "PATIENCE": 10,
-    "MAX_EPOCHS": 100,
+    "MAX_EPOCHS": 70,
     "VALIDATION_SPLIT": 0.6,
     "RAMPUP_EPOCHS": 20,
     "SUSTAIN_EPOCHS": 0.0,

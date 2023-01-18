@@ -34,7 +34,7 @@ def merge_and_tile(tag=None, tile=None):
     else:
         globber = "*.tif"
 
-    tif_list = glob.glob(globber)
+    tif_list = glob.glob(globber)      
 
     first_tif = tif_list[0]
     #print(str(first_tif))
@@ -327,18 +327,18 @@ Not strictly a tiff
         ])
     )
 
-    #-crop_to_cutline
+    #-crop_to_cutline  -t_srs EPSG:5936 -s_srs EPSG:5936
 
     for id in ids:
         
         # print(os.system(f'ogrinfo -ro -so -al polar_{id}.shp'))
         # print(os.system(f'gdalinfo {id}_labels.tif'))
 
-        repro_string = f'gdalwarp -of GTiff -t_srs EPSG:5936 {id}_labels.tif {id}_polar_labels.tif'
-        os.system(repro_string)
+        # repro_string = f'gdalwarp -of GTiff -t_srs EPSG:5936 {id}_labels.tif {id}_polar_labels.tif'
+        # os.system(repro_string)
 
         cutline_string = (
-            f'gdalwarp -of GTiff -cutline polar_{id}.shp -t_srs EPSG:5936 -s_srs EPSG:5936 -dstnodata 9999 {id}_polar_labels.tif {id}_cropped_labels.tif'
+            f'gdalwarp -of GTiff -cutline polar_{id}.shp -dstnodata 9999 {id}_labels.tif {id}_cropped_labels.tif'
             )
         os.system(cutline_string)
         # gdal.Warp(f'{id}_cropped_labels.tif',

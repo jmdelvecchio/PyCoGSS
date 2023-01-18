@@ -1,7 +1,7 @@
 from osgeo import gdal
 import os
 import glob, os, shutil
-
+import random
 from pathlib import Path 
 
 from tkinter import filedialog, messagebox
@@ -56,8 +56,8 @@ os.system(wkt_string)
 
 # filename = geotiff_data_path.name + "_" + tag + ".tif"
 
-filename= (geotiff_data_path / Path(first_tif).stem[0:8]).as_posix() + ".tif"
-print('Your merged image is named after the imagery date: ', filename)
+filename= (geotiff_data_path / Path(first_tif).stem[0:8]).as_posix() + "_" + str(random.randrange(1000)) + ".tif"
+print('Your merged image is named after the imagery date plus a random number lol: ', filename)
 
 globber_path = geotiff_data_path.as_posix() + "/" + globber
 
